@@ -1,7 +1,9 @@
 package org.kitteh.tag;
 
 import com.google.common.base.Preconditions;
+
 import lombok.Getter;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.PlayerEvent;
@@ -37,6 +39,12 @@ public class PlayerReceiveNameTagEvent extends PlayerEvent
         this.modified = true;
 
         return tag.length() < 16;
+    }
+    
+    public String getTag() {
+
+        Preconditions.checkNotNull( this.tag, "tag" );
+        return this.tag;
     }
 
     @Override

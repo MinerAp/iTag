@@ -38,6 +38,20 @@ public class AsyncPlayerReceiveNameTagEvent extends Event
         this.tagModified = namedPlayer.getName().equals( initialName );
         this.UUID = uuid;
     }
+    
+    public Player getPlayer() {
+
+        Preconditions.checkNotNull( this.player, "player" );
+		return this.player;
+    	
+    }
+    
+    public Player getNamedPlayer() {
+
+        Preconditions.checkNotNull( this.namedPlayer, "namedPlayer" );
+		return this.namedPlayer;
+    	
+    }
 
     public boolean setTag(String tag)
     {
@@ -47,6 +61,19 @@ public class AsyncPlayerReceiveNameTagEvent extends Event
         this.tagModified = true;
 
         return tag.length() < 16;
+    }
+    
+    public String getTag() {
+
+        Preconditions.checkNotNull( this.tag, "tag" );
+        return this.tag;
+    }
+    
+    public UUID getUUID()
+    {
+        Preconditions.checkNotNull( this.UUID, "uuid" );
+
+        return this.UUID;
     }
 
     public void setUUID(UUID uuid)

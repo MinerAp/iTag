@@ -8,13 +8,17 @@ import com.comphenix.protocol.wrappers.EnumWrappers.PlayerInfoAction;
 import com.comphenix.protocol.wrappers.PlayerInfoData;
 import com.comphenix.protocol.wrappers.WrappedGameProfile;
 import com.google.common.base.Preconditions;
+
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+
 import lombok.Getter;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -27,9 +31,8 @@ import org.kitteh.tag.TagAPI;
 
 public class iTag extends JavaPlugin implements Listener
 {
-
     @Getter
-    private static iTag instance;
+    public static iTag instance;
     private TagAPI tagAPI;
     private Map<Integer, Player> entityIdMap;
     private static final int[] uuidSplit = new int[]
@@ -42,7 +45,7 @@ public class iTag extends JavaPlugin implements Listener
     {
         instance = this;
         entityIdMap = new HashMap<Integer, Player>();
-        tagAPI = new TagAPI( this );
+        setTagAPI(new TagAPI( this ));
 
         for ( Player player : getServer().getOnlinePlayers() )
         {
@@ -101,7 +104,7 @@ public class iTag extends JavaPlugin implements Listener
 
         entityIdMap.clear();
         entityIdMap = null;
-        tagAPI = null;
+        setTagAPI(null);
         instance = null;
     }
 
@@ -132,10 +135,9 @@ public class iTag extends JavaPlugin implements Listener
         }
         AsyncPlayerReceiveNameTagEvent newEvent = new AsyncPlayerReceiveNameTagEvent( destinationPlayer, namedPlayer, oldEvent.getTag(), UUID.fromString( builtUUID.toString() ) );
         getServer().getPluginManager().callEvent( newEvent );
-
         WrappedGameProfile newProfile = new WrappedGameProfile( newEvent.getUUID(), newEvent.getTag().substring( 0, Math.min( newEvent.getTag().length(), 16 ) ) );
         if (sent.getProperties().containsKey("textures"))
-        	newProfile.getProperties().putAll("textures", sent.getProperties().get("textures"));
+          	newProfile.getProperties().putAll("textures", sent.getProperties().get("textures"));
         return newProfile;
     }
 
@@ -168,6 +170,19 @@ public class iTag extends JavaPlugin implements Listener
             }, 2 );
         }
     }
+    
+    public void refreshPlayer(Player player, Collection<? extends Player> forWhom)
+    {
+        Preconditions.checkState( isEnabled(), "Not Enabled!" );
+        Preconditions.checkNotNull( player, "player" );
+        Preconditions.checkNotNull( forWhom, "forWhom" );
+
+        for ( Player playerFor : forWhom )
+        {
+            refreshPlayer( player, playerFor );
+            refreshPlayer( playerFor, player );
+        }
+    }
 
     public void refreshPlayer(Player player, Set<Player> forWhom)
     {
@@ -178,6 +193,15 @@ public class iTag extends JavaPlugin implements Listener
         for ( Player playerFor : forWhom )
         {
             refreshPlayer( player, playerFor );
+            refreshPlayer( playerFor, player );
         }
     }
+
+	public TagAPI getTagAPI() {
+		return tagAPI;
+	}
+
+	public void setTagAPI(TagAPI tagAPI) {
+		this.tagAPI = tagAPI;
+	}
 }
