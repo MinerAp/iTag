@@ -77,7 +77,7 @@ public class TagAPI extends PluginBase implements PluginLoader
     {
         CommandExecutor.class, TabCompleter.class, Plugin.class
     })
-    private final iTag parent;
+    private static iTag parent;
     @Getter
     private PluginDescriptionFile description;
 //    private List<Plugin> plugins;
@@ -85,7 +85,7 @@ public class TagAPI extends PluginBase implements PluginLoader
 
     public TagAPI(iTag parent)
     {
-        this.parent = parent;
+        TagAPI.parent = parent;
 
 //        plugins = (List<Plugin>) getObj( SimplePluginManager.class, parent.getServer().getPluginManager(), "plugins" );
 //        lookupNames = (Map<String, Plugin>) getObj( SimplePluginManager.class, parent.getServer().getPluginManager(), "lookupNames" );
@@ -130,7 +130,7 @@ public class TagAPI extends PluginBase implements PluginLoader
 //        }
 //    }
 
-    public void refreshPlayer(Player player)
+    public static void refreshPlayer(Player player)
     {
         if ( parent != null )
         {
@@ -138,7 +138,7 @@ public class TagAPI extends PluginBase implements PluginLoader
         }
     }
 
-    public void refreshPlayer(Player player, Player forWhom)
+    public static void refreshPlayer(Player player, Player forWhom)
     {
         if ( parent != null )
         {
@@ -146,7 +146,7 @@ public class TagAPI extends PluginBase implements PluginLoader
         }
     }
 
-    public void refreshPlayer(Player player, Set<Player> forWhom)
+    public static void refreshPlayer(Player player, Set<Player> forWhom)
     {
         if ( parent != null )
         {

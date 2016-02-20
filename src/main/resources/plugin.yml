@@ -1,6 +1,6 @@
-name: iTag
-version: 1.1.2
-description: Name tag API which is backwards compatible with TagAPI
+name: TagAPI
+version: 1.1.4
+description: Actually is iTag - Name tag API which is backwards compatible with TagAPI
 author: md_5
 
 load: STARTUP
