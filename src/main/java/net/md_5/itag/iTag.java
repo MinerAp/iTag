@@ -159,15 +159,22 @@ public class iTag extends JavaPlugin implements Listener
         Preconditions.checkNotNull( forWhom, "forWhom" );
 
         if ( player != forWhom && player.getWorld() == forWhom.getWorld() && forWhom.canSee( player ) )
-        {
-            forWhom.hidePlayer( player );
-            getServer().getScheduler().scheduleSyncDelayedTask( this, new Runnable()
+        { 
+        	getServer().getScheduler().scheduleSyncDelayedTask( this, new Runnable()
+            {
+                public void run()
+                {
+                	forWhom.hidePlayer( player );
+                }
+            }, 1);
+        	getServer().getScheduler().scheduleSyncDelayedTask( this, new Runnable()
             {
                 public void run()
                 {
                     forWhom.showPlayer( player );
                 }
-            }, 2 );
+            }, 5);
+            
         }
     }
     
