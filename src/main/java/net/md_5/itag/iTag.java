@@ -165,9 +165,15 @@ public class iTag extends JavaPlugin implements Listener
                 public void run()
                 {
                 	forWhom.hidePlayer( player );
+                }
+            });
+        	getServer().getScheduler().scheduleSyncDelayedTask( this, new Runnable()
+            {
+                public void run()
+                {
                     forWhom.showPlayer( player );
                 }
-            }, 0);
+            }, 2);
         }
     }
     

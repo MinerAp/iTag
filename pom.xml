@@ -3,8 +3,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>net.md-5</groupId>
-    <artifactId>iTag-API</artifactId>
-    <version>1.1.7-SNAPSHOT</version>
+    <artifactId>TagAPI</artifactId>
+    <version>1.1.8</version>
     <packaging>jar</packaging>
 
     <name>iTag</name>
@@ -43,7 +43,7 @@
             <artifactId>ProtocolLib</artifactId>
             <version>3.6.5-SNAPSHOT</version>
             <scope>system</scope>
-            <systemPath>D:/civcraftsvn/trunk/lib/ProtocolLib.jar</systemPath>
+            <systemPath>D:/civcraftsvn/trunk/lib/ProtocolLib 3.6.5.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.bukkit</groupId>
