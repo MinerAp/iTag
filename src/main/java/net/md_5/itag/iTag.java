@@ -32,7 +32,7 @@ import org.kitteh.tag.TagAPI;
 public class iTag extends JavaPlugin implements Listener
 {
     @Getter
-    public static iTag instance;
+    private static iTag instance;
     private TagAPI tagAPI;
     private Map<Integer, Player> entityIdMap;
     private static final int[] uuidSplit = new int[]
@@ -43,7 +43,7 @@ public class iTag extends JavaPlugin implements Listener
     @Override
     public void onEnable()
     {
-        instance = this;
+        setInstance(this);
         entityIdMap = new HashMap<Integer, Player>();
         setTagAPI(new TagAPI( this ));
 
@@ -105,7 +105,7 @@ public class iTag extends JavaPlugin implements Listener
         entityIdMap.clear();
         entityIdMap = null;
         setTagAPI(null);
-        instance = null;
+        setInstance(null);
     }
 
     private WrappedGameProfile getSentName(int sentEntityId, WrappedGameProfile sent, Player destinationPlayer)
@@ -205,6 +205,14 @@ public class iTag extends JavaPlugin implements Listener
 
 	public TagAPI getTagAPI() {
 		return tagAPI;
+	}
+
+	public static iTag getInstance() {
+		return instance;
+	}
+
+	public static void setInstance(iTag instance) {
+		iTag.instance = instance;
 	}
 
 	public void setTagAPI(TagAPI tagAPI) {

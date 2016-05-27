@@ -129,6 +129,9 @@ public class TagAPI extends PluginBase implements PluginLoader
 //            throw Throwables.propagate( ex );
 //        }
 //    }
+    public iTag getInstance() {
+    	return iTag.getInstance();
+    }
 
     public static void refreshPlayer(Player player)
     {
